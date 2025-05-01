@@ -1,6 +1,9 @@
 @extends('layouts.app')
 @section('content')
 <div class="container">
+    <a href="{{ route('home') }}" class="btn btn-secondary mb-3">
+        ← Back to Dashboard
+    </a>
   <br>
     <div class="row justify-content-center">
         <div class="col-md-6">

@@ -1,3 +1,30 @@
+# Laravel To-Do App Assignment (Enhanced Authentication & Profile Management)
+
+This repository contains my Laravel assignment implementation, enhanced to meet the following **Assignment Requirements**:
+
+## ✅ Completed Requirements
+
+- [x] **Register/Login with custom password salting**  
+- [x] **Rate limiting**: 3 login attempts per minute (with lockout response)  
+- [x] **Email Verification** via Fortify  
+- [x] **Multi-Factor Authentication (2FA)** with enable/disable QR code and recovery codes  
+- [x] **Custom login logic** (supports salted passwords via `CustomLoginController`)  
+- [x] **Editable profile** with nickname, phone, city, avatar image upload  
+- [x] **Avatar and nickname shown on Navbar dropdown**  
+- [x] **To-Do List feature with CRUD and status**  
+- [x] **View todos on dashboard (home)**  
+- [x] **Input validation for registration & login** using Form Requests  
+- [x] **User delete account feature**
+
+## ⚠️ Setup Notes
+
+- Ensure email verification works locally (use Mailtrap or log driver)
+- 2FA only works if your app’s session, encryption, and queue are configured
+- Default dashboard route: `/home`
+- 2FA toggle is available on `/profile`
+
+---
+
 # To-Do App with Profile & Input Validation Enhancements
 
 This is a Laravel-based To-Do application I've enhanced as part of my assignment. It includes:

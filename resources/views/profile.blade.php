@@ -8,7 +8,44 @@
         <div style="color: green; margin-bottom: 15px;">{{ session('success') }}</div>
     @endif
 
-    <a href="{{ route('todo.index') }}" style="display:inline-block; margin-bottom:20px;">&larr; Back to To-Do List</a>
+    {{-- <a href="{{ route('todo.index') }}" style="display:inline-block; margin-bottom:20px;">&larr; Back to To-Do List</a> --}}
+    <div class="d-flex justify-content-between mb-3">
+        <a href="{{ route('home') }}" class="btn btn-secondary">&larr; Back to Dashboard</a>
+        <a href="{{ route('todo.index') }}" class="btn btn-outline-primary">Back to To-Do List</a>
+    </div>
+
+    <form method="POST" action="{{ url('/user/two-factor-authentication') }}">
+        @csrf
+
+        @if (auth()->user()->two_factor_secret)
+            @method('DELETE')
+            <button type="submit" class="btn btn-warning mb-3">
+                Disable Two-Factor Authentication
+            </button>
+        @else
+            <button type="submit" class="btn btn-success mb-3">
+                Enable Two-Factor Authentication
+            </button>
+        @endif
+    </form>
+
+    @if (session('status') == 'two-factor-authentication-enabled')
+    <div class="alert alert-success">
+        Two-Factor Authentication Enabled.
+    </div>
+@endif
+
+@if (auth()->user()->two_factor_secret)
+    <h5>Scan this QR Code with your authenticator app:</h5>
+    {!! auth()->user()->twoFactorQrCodeSvg() !!}
+
+    <h5>Recovery Codes:</h5>
+    <ul>
+        @foreach (json_decode(decrypt(auth()->user()->two_factor_recovery_codes)) as $code)
+            <li>{{ $code }}</li>
+        @endforeach
+    </ul>
+@endif
 
     <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data" style="background: #f9f9f9; padding: 20px; border-radius: 8px;">
         @csrf
@@ -57,6 +94,11 @@
         </div>
     </form>
 
+    {{-- <div class="text-center mt-4">
+        <a href="{{ url('/user/two-factor-authentication') }}" class="btn btn-secondary">
+            Manage Two-Factor Authentication
+        </a>
+    </div> --}}
     <form action="{{ route('profile.destroy') }}" method="POST" onsubmit="return confirm('Are you sure you want to delete your account?');" style="margin-top: 20px;">
         @csrf
         @method('DELETE')

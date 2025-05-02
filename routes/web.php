@@ -6,12 +6,22 @@ use App\Http\Controllers\TodoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CustomLoginController;
 use App\Http\Controllers\Auth\ConfirmablePasswordController;
+use Laravel\Fortify\Http\Controllers\TwoFactorAuthenticatedSessionController;
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/user/confirm-password', [ConfirmablePasswordController::class, 'show'])->name('password.confirm');
     Route::post('/user/confirm-password', [ConfirmablePasswordController::class, 'store']);
 });
 Route::post('/login', [CustomLoginController::class, 'store']);
+
+
+
+Route::get('/two-factor-challenge', function () {
+    return view('auth.two-factor-challenge');
+})->middleware(['guest'])->name('two-factor.login');
+
+Route::post('/two-factor-challenge', [TwoFactorAuthenticatedSessionController::class, 'store'])
+    ->middleware(['guest']);
 
 Route::get('/', function () {
     return view('welcome');

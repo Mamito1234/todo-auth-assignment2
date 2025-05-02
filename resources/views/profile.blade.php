@@ -46,7 +46,12 @@
         @endforeach
     </ul>
 @endif
-
+<form method="POST" action="{{ url('/user/two-factor-recovery-codes') }}">
+    @csrf
+    <button type="submit" class="btn btn-warning">
+        Regenerate Recovery Codes
+    </button>
+</form>
     <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data" style="background: #f9f9f9; padding: 20px; border-radius: 8px;">
         @csrf
         @method('PUT')

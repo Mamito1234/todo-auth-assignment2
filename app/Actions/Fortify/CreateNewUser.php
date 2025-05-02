@@ -36,6 +36,7 @@ class CreateNewUser implements CreatesNewUsers
         ]);
     }
 
+    
      // public function create(array $input): User
     // {
     //     Validator::make($input, [

@@ -23,6 +23,12 @@ This repository contains my Laravel assignment implementation, enhanced to meet 
 - Default dashboard route: `/home`
 - 2FA toggle is available on `/profile`
 
+## 🔒 Additional Security Details
+	•	Custom password salting is handled in CreateNewUser.php and ResetUserPassword.php, where a unique salt is generated per user and combined before hashing.
+	•	Rate limiting is implemented using Laravel’s RateLimiter in FortifyServiceProvider.php (3 attempts/minute).
+	•	2FA challenge flow redirects to two-factor-challenge.blade.php with QR scan and recovery code support.
+	•	All 2FA configurations are handled via Laravel Fortify’s native features with custom blade views and session-based logic.
+
 ---
 
 # To-Do App with Profile & Input Validation Enhancements

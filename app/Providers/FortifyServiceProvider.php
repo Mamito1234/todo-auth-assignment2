@@ -22,7 +22,10 @@ use Illuminate\Support\Str;
 use Laravel\Fortify\Contracts\LoginViewResponse as LoginResponseContract;
 use Laravel\Fortify\Contracts\RegisterViewResponse as RegisterResponseContract;
 use Laravel\Fortify\Contracts\VerifyEmailViewResponse as VerifyEmailResponseContract;
-
+use Laravel\Fortify\Contracts\RequestPasswordResetLinkViewResponse as ResetLinkResponseContract;
+use App\Http\Responses\RequestPasswordResetLinkViewResponse;
+use Laravel\Fortify\Contracts\ResetPasswordViewResponse;
+use App\Http\Responses\ResetPasswordViewResponse as CustomResetPasswordViewResponse;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -32,10 +35,12 @@ class FortifyServiceProvider extends ServiceProvider
     public function register(): void
 {
     $this->app->singleton(ConfirmPasswordViewResponseContract::class, ConfirmPasswordViewResponse::class);
-
+    $this->app->singleton(ResetLinkResponseContract::class, RequestPasswordResetLinkViewResponse::class);
     $this->app->singleton(LoginViewResponse::class, fn () => new ViewResponse('auth.login'));
     $this->app->singleton(RegisterViewResponse::class, fn () => new ViewResponse('auth.register'));
     $this->app->singleton(VerifyEmailViewResponse::class, fn () => new ViewResponse('auth.verify-email'));
+    $this->app->singleton(ResetPasswordViewResponse::class, fn () => new ViewResponse('auth.passwords.reset'));
+    $this->app->singleton(ResetPasswordViewResponse::class, CustomResetPasswordViewResponse::class);
 }
 
      // public function register(): void
